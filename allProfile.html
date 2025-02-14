@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Profiles</title>
+</head>
+
+<body style="background-color:white;padding-left: 35%;padding-top: 10%;">
+    
+        <table id="myTable" style="border: 1px solid black;background-color: rgb(69, 214, 124);">
+            <thead>All Profiles</thead>
+                <tr >
+                    <th style="border: 1px solid black;">Id</th>
+                    <th style="border: 1px solid black;">Name</th>
+                    <th style="border: 1px solid black;">Email</th>
+                    <th style="border: 1px solid black;">Phone</th>
+                    <th style="border: 1px solid black;">Balance</th>
+                </tr>
+        </table><br>
+    </div><div id="content" ><a href="dashboard.html"><button style="border-radius: 20px;color: rgb(5, 5, 6);background-color: rgb(120, 183, 246);">Dashboard</button></a>
+    <script>
+        window.onload = async function () {
+            let res = await fetch("http://localhost:8080/fetchAllAccounts")
+           
+            if(res.status==302){
+
+            const    bankAccounts   = await res.json()
+                bankAccounts.forEach(bank => {
+            let table=document.getElementById("myTable");
+            let newRow=table.insertRow();
+            let cell1=newRow.insertCell(0);
+            let cell2=newRow.insertCell(1);
+            let cell3=newRow.insertCell(2);
+            let cell4=newRow.insertCell(3);
+            let cell5=newRow.insertCell(4);
+            cell1.textContent=bank.id;
+            cell2.textContent=bank.name;
+            cell3.textContent=bank.email;
+            cell4.textContent=bank.phone;
+            cell5.textContent=bank.balance;
+            })
+            }
+            
+            
+            
+          
+        }
+    </script>
+</body>
+
+</html>

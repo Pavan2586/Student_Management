@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch</title>
+</head>
+<body style="background-color: white;padding-left: 40%;padding-top: 15%;">
+    <div style="width:200px;height: 150px;border: 1px solid black;padding-left: 50px;background-color: rgb(69, 214, 124);">
+    <h3>fetch page</h3>
+    <form action="fetch" method="post" id="form">
+        <div>
+            <lable>enter ID</lable><br>
+            <input type="number" placeholder="id" id="id">
+            <br><br> 
+            <input type="submit" value="fetch" style="border-radius: 20px;color: rgb(8, 8, 8);background-color: rgb(42, 104, 165); margin-left: 50px;" type="submit" value="submit">
+        </div>
+    </form>
+    </div>
+    <script>
+        document.getElementById("form").addEventListener("submit",async function (event) {
+                event.preventDefault();
+                const id=document.getElementById("id").value
+                console.log(id);
+                try{
+                    let res=await fetch("http://localhost:8080/fetchBankAccountById?bankId=".concat(id),
+                       
+                    )
+                    if(res.status==302)
+                    {
+                        const bankUser=await res.json()
+                        let id=bankUser.id
+                        let name=bankUser.name
+                        let email=bankUser.email
+                        let phone=bankUser.phone
+                        
+                        alert("data found🫡🫡..\nid:".concat(id)+" \nname: ".concat(name)+
+                        " \nemail: ".concat(email)+" \nphone: ".concat(phone)
+                        );
+                        window.location.href="dashboard.html";
+
+                    }
+                    else{
+                        alert("sorry...failed.🫢🫢😥😥")
+                    }
+                }
+                catch(error)
+                {
+                    console.log(error)
+                }
+                }
+        )
+    </script>
+</body>
+</html>

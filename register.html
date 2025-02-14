@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>register</title>
+</head>
+<body style="background-color: white;padding-left: 40%;padding-top: 5%;">
+    <div style="width:200px;height: 460px;border: 1px solid black;padding-left: 50px;background-color: rgb(69, 214, 124);">
+    <h3>Registration page</h3>
+    <form action="register" method="post" id="form">
+            <label>
+                name:
+            </label> <br>
+            <input type="text" placeholder="name" id="name">
+            <br><br>
+            <label>
+                email:
+            </label> <br><br>
+            <input type="email" placeholder="email" id="email">
+            <br<label> <br><br>
+                phone:
+            </label>
+            <br><br>
+            <input type="tel" placeholder="phone" id="phone">
+            <label> <br><br>
+                deposite ammount:
+            </label>
+            <br><br>
+            <input type="number" placeholder="deposite in rs" id="balance">
+            <br><br><label>
+                password:
+            </label> <br><br>
+            <input type="text" placeholder="password" id="pwd">
+            <br>
+            <br>
+            <input style="border-radius: 20px;color: rgb(8, 8, 8);background-color: rgb(42, 104, 165); margin-left: 50px;" type="submit" value="submit" >
+    </form>
+    </div>
+    <script>
+        document.getElementById("form").addEventListener("submit",async function (event) {
+                event.preventDefault()
+                const emp={
+                    name:document.getElementById("name").value,
+                    email:document.getElementById("email").value,
+                    balance:document.getElementById("balance").value,
+                    phone:document.getElementById("phone").value,
+                    pwd:document.getElementById("pwd").value
+                }
+                console.log(emp);  
+                try{
+                    let res=await fetch("http://localhost:8080/saveUser",
+                        {
+                            method:"post",
+                            headers:{"Content-Type":"application/json"},
+                            body:JSON.stringify(emp)
+                        }
+                    )
+                    if(res.status==201)
+                    {
+
+                        alert("data saved successfully🫡🫡🫡🫡");
+                        window.location.href="dashboard.html";
+
+                    }
+                    else{
+                        alert("Data already exist...")
+                    }
+                }
+                catch(error)
+                {
+                    console.log(error)
+                }
+                }
+        )
+    </script>
+</body>
+</html>
